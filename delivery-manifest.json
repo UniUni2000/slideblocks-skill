@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "packageVersion": "0.12.0",
+  "clientVersion": "0.2.0",
+  "minimumClientVersion": "0.2.0",
+  "protocolVersion": 1,
+  "clientId": "slideblocks-skill",
+  "scope": "artifact:unlock artifact:download",
+  "installProtocol": "slideblocks-skill-zip-v1",
+  "updateCommand": "slideblocks skill update"
+}

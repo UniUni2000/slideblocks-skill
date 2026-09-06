@@ -1,0 +1,4 @@
+interface:
+  display_name: "SlideBlocks"
+  short_description: "Create or improve complete Slidev decks from materials"
+  default_prompt: "Use $slideblocks to turn my PDFs, documents, web pages, Markdown, PowerPoint, and other materials into a complete polished Slidev deck, or improve my existing Slidev deck, then autonomously review it and deliver verified editable source plus a self-contained offline.html that opens directly in Chromium with English and Chinese usage instructions."
