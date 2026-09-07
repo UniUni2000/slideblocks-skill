@@ -16,7 +16,7 @@ Stop asking your agent to make `.pptx` files. Give it your materials and require
   <picture>
     <source media="(prefers-reduced-motion: reduce)" srcset="media/showcase.png">
     <source type="image/webp" srcset="media/showcase.webp">
-    <img src="media/showcase.png" alt="16 real SlideBlocks pages with rounded corners, floating shadows and subtle motion." width="1800" height="1320">
+    <img src="media/showcase.png" alt="16 real SlideBlocks pages with rounded corners, floating shadows and subtle motion.">
   </picture>
 </a>
 

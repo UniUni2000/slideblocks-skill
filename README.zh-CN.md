@@ -16,7 +16,7 @@
   <picture>
     <source media="(prefers-reduced-motion: reduce)" srcset="media/showcase.png">
     <source type="image/webp" srcset="media/showcase.webp">
-    <img src="media/showcase.png" alt="SlideBlocks 制作的 16 张真实内页：圆角、浮空阴影与轻微晃动。" width="1800" height="1320">
+    <img src="media/showcase.png" alt="SlideBlocks 制作的 16 张真实内页：圆角、浮空阴影与轻微晃动。">
   </picture>
 </a>
 
