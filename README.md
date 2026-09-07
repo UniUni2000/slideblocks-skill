@@ -1,12 +1,10 @@
 <div align="center">
 
-<img src="media/slideblocks-mark.svg" alt="SlideBlocks logo" width="80" height="80">
-
-# SlideBlocks
+<h1 align="center"><img src="media/slideblocks-mark.svg" alt="SlideBlocks logo" width="40" height="40" align="absmiddle"> SlideBlocks</h1>
 
 **Make polished presentations fast, in an AI-native format.**
 
-Stop asking your agent to make `.pptx` files. Give it your materials and requirements, and let the SlideBlocks skill build your presentation in native HTML.
+Try native HTML for your next presentation. Give your agent your materials and requirements, and let the SlideBlocks skill build the deck.
 
 [Get started](#get-started) · [Use your presentation](#use-your-presentation) · [简体中文](README.zh-CN.md)
 
