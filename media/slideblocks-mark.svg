@@ -1,0 +1,9 @@
+<svg fill="none" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <title>SlideBlocks mark</title>
+  <g transform="rotate(-8 16 16)">
+    <rect data-logo-part="card-back" x="10.3" y="13.5" width="17.8" height="10.8" rx="4.2" fill="#06B6D4" stroke="#FFFFFF" stroke-width="0.7"/>
+    <rect data-logo-part="card-middle" x="7.1" y="10.6" width="17.8" height="10.8" rx="4.2" fill="#8B5CF6" stroke="#FFFFFF" stroke-width="0.7"/>
+    <rect data-logo-part="card-front" x="3.9" y="7.7" width="17.8" height="10.8" rx="4.2" fill="#EC4899" stroke="#FFFFFF" stroke-width="0.7"/>
+    <circle data-logo-part="card-dot" cx="9.2" cy="11.1" r="1.4" fill="#FFFFFF" fill-opacity="0.72"/>
+  </g>
+</svg>
