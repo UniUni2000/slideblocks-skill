@@ -1,6 +1,6 @@
 <div align="center">
 
-<h1 align="center"><img src="media/slideblocks-mark.svg" alt="SlideBlocks logo" width="40" height="40" align="absmiddle"> SlideBlocks</h1>
+<h1 align="center"><img src="media/slideblocks-mark.svg" alt="SlideBlocks logo" width="40" height="40" align="absmiddle"> SlideBlocks Skill</h1>
 
 **Make polished presentations fast, in an AI-native format.**
 
