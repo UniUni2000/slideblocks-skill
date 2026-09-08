@@ -1,0 +1,38 @@
+name: Check public demo
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/check-demo.yml
+      - scripts/check-demo.mjs
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: gh-pages
+          path: _demo
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+      - name: Verify public files and excluded routes
+        run: node scripts/check-demo.mjs https://uniuni2000.github.io/slideblocks-skill/ _demo
+      - name: Open the English presentation in Chrome
+        run: >-
+          npm exec --yes --package=playwright@1.62.0 --
+          playwright screenshot --channel=chrome --viewport-size=1600,900
+          --wait-for-selector='h1' --wait-for-timeout=3000
+          'https://uniuni2000.github.io/slideblocks-skill/#/1'
+          '${{ runner.temp }}/sgr-a-viewer.png'
