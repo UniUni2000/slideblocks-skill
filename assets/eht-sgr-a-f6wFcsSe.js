@@ -1,0 +1,1 @@
+var e=``+new URL(`../model-court/eht-sgr-a.jpg`,import.meta.url).href;export{e as t};

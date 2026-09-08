@@ -1,0 +1,57 @@
+# Sagittarius A* discovery deck — sources and asset boundaries
+
+This declaration separates SlideBlocks' first-party implementation and scientific narration from astronomy images, paper material, data, fonts, and icons supplied by others. It is a provenance record, not a legal conclusion.
+
+## First-party layer
+
+The deck's Slidev/Vue implementation, original arrangement, interactive explanations, locally authored diagrams, and original narration created by SlideBlocks contributors are covered by the repository MIT License, only to the extent those contributors have the right to license them.
+
+The MIT License does not override the terms for source papers, datasets, astronomy images, fonts, icons, or any generated output containing them.
+
+## Scientific sources
+
+The deck's 21-item bibliography is maintained in `components/ReferencesIndex.vue`. Key machine-readable source links include:
+
+- [GRAVITY Collaboration (2020)](https://arxiv.org/abs/2004.07187)
+- [Schödel et al. (2002)](https://arxiv.org/abs/astro-ph/0210426)
+- [Gillessen et al. (2009)](https://arxiv.org/abs/0810.4674)
+- [EHT Collaboration (2022), First Sagittarius A* Results I](https://doi.org/10.3847/2041-8213/ac6674)
+
+Citations establish scientific attribution. They do not by themselves establish permission to copy a paper figure, table, caption, dataset, or substantial text. Each plotted parameter and each redrawn or adapted figure still requires a source-to-slide record and human confirmation.
+
+## Maintainer clearance
+
+On 2026-08-02, the SlideBlocks project owner confirmed that SlideBlocks holds the rights required to use every asset listed below for the hosted product and downloadable source bundle. Registry records use `LicenseRef-SlideBlocks-Maintainer-Attested` for externally sourced media and MIT for owner-confirmed first-party material. This confirmation does not erase upstream attribution, scientific citation, trademark, dataset, font, or other third-party restrictions.
+
+## Local astronomy imagery
+
+The URLs and credits below were recovered from embedded JPEG metadata. The dated owner attestation is the Registry clearance basis; complete recorded credits and upstream restrictions must still be preserved.
+
+| Path | Embedded source and credit | License evidence | Status |
+| --- | --- | --- | --- |
+| `public/scale-tunnel/milky-way-panorama.jpg` | [ESO eso0932a](https://www.eso.org/public/images/eso0932a/); ESO/S. Brunier | Owner attestation dated 2026-08-02 | `cleared`; preserve the recorded limitation and full credit. |
+| `public/scale-tunnel/galactic-centre-visible.jpg` | [ESO galactic-centre-a](https://www.eso.org/public/images/galactic-centre-a/); ESO/DSS2/De Martin/S. Guisard | Owner attestation dated 2026-08-02 | `cleared`; preserve all joint credits. |
+| `public/scale-tunnel/galactic-centre-near-ir.jpg` | [ESO galactic-centre-b](https://www.eso.org/public/images/galactic-centre-b/); ESO/Nogueras-Lara et al. | Owner attestation dated 2026-08-02 | `cleared`; preserve complete credit. |
+| `public/scale-tunnel/galactic-centre-submm.jpg` | [ESO eso0841a](https://www.eso.org/public/images/eso0841a/); ESO/APEX/2MASS/A. Eckart et al. | Owner attestation dated 2026-08-02 | `cleared`; preserve all joint credits. |
+| `public/model-court/eso-s2-orbit.jpg` | [ESO eso0226c](https://www.eso.org/public/images/eso0226c/); ESO | Owner attestation dated 2026-08-02 | `cleared`; preserve complete credit. |
+| `public/model-court/eso-s2-precession.jpg` | [ESO eso2006a](https://www.eso.org/public/images/eso2006a/); ESO/L. Calçada | Owner attestation dated 2026-08-02 | `cleared`; preserve complete credit. |
+| `public/model-court/eht-sgr-a.jpg` | [ESO eso2208-eht-mwa](https://www.eso.org/public/images/eso2208-eht-mwa/); EHT Collaboration. Reused by `components/BeforeTheImage.vue`, `EarthApertureImaging.vue`, `ModelCourtLedger.vue`, and `ThankYouHorizon.vue`. | Owner attestation dated 2026-08-02 | `cleared`; preserve EHT and ESO terms and credit. |
+| `public/eht-imaging/eht-2017-array-map.jpg` | [ESO eso2208-eht-mwi](https://www.eso.org/public/images/eso2208-eht-mwi/); ESO/M. Kornmesser | Owner attestation dated 2026-08-02 | `cleared`; preserve complete credit. |
+| `public/eht-imaging/sgr-a-reconstruction-ensemble.jpg` | [ESO eso2208-eht-mwb](https://www.eso.org/public/images/eso2208-eht-mwb/); EHT Collaboration | Owner attestation dated 2026-08-02 | `cleared`; preserve EHT and ESO terms and credit. |
+| `public/eht-imaging/eht-m87.jpg` | [ESO eso1907a](https://www.eso.org/public/images/eso1907a/); EHT Collaboration | Owner attestation dated 2026-08-02 | `cleared`; preserve EHT and ESO terms and credit. |
+
+`components/BeforeTheImage.vue` previously loaded the cleared [ESO eso2208-eht-mwh](https://cdn.eso.org/images/screen/eso2208-eht-mwh.jpg) derivative at runtime. The portable delivery now reuses the local `public/model-court/eht-sgr-a.jpg` (`eso2208-eht-mwa`) instead, so playback does not depend on the ESO CDN. The 2026-08-02 owner attestation for the earlier `eso2208-eht-mwh` reference remains part of the provenance history; this replacement does not remove its attribution or rights evidence.
+
+The compressed image-credit line in `components/ReferencesIndex.vue` is not a substitute for retaining each source page's complete required credit.
+
+## Icon and fonts
+
+| Material | Current evidence | Status |
+| --- | --- | --- |
+| `public/black-hole.svg` | Project owner confirmed first-party ownership on 2026-08-02. | MIT; `cleared`. |
+| Computer Modern/CMU font files bundled into generated preview | The installed `computer-modern` package includes SIL Open Font License 1.1 terms. | Third-party; retain the OFL text and required notices in distributions. |
+| KaTeX font files bundled into generated preview | The installed KaTeX package carries MIT terms. | Third-party; retain the package's license notice in distributions. |
+
+## Generated outputs
+
+The Registry poster and website preview include the images, fonts, and icon above. They are cleared for the confirmed SlideBlocks product scope; all recorded credits, font notices, and upstream restrictions remain required.
