@@ -7,6 +7,7 @@ on:
     paths:
       - .github/workflows/check-demo.yml
       - scripts/check-demo.mjs
+      - scripts/check-demo-ui.mjs
 
 permissions:
   contents: read
@@ -29,10 +30,13 @@ jobs:
           node-version: '24'
       - name: Verify public files and excluded routes
         run: node scripts/check-demo.mjs https://uniuni2000.github.io/slideblocks-skill/ _demo
-      - name: Open the English presentation in Chrome
+      - name: Install browser automation
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+        run: npm install --prefix "${{ runner.temp }}/demo-runtime" --no-audit --no-fund playwright-chromium@1.62.0
+      - name: Exercise menus and exported files in Chrome
         run: >-
-          npm exec --yes --package=playwright@1.62.0 --
-          playwright screenshot --channel=chrome --viewport-size=1600,900
-          --wait-for-selector='h1' --wait-for-timeout=3000
-          'https://uniuni2000.github.io/slideblocks-skill/#/1'
-          '${{ runner.temp }}/sgr-a-viewer.png'
+          node scripts/check-demo-ui.mjs
+          'https://uniuni2000.github.io/slideblocks-skill/'
+          '${{ runner.temp }}/demo-runtime'
+          '${{ runner.temp }}/demo-artifacts'

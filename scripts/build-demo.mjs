@@ -15,6 +15,9 @@ if (existsSync(output)) throw new Error('Output must not exist; existing files a
 const deck = 'decks/sgr-a-discovery';
 const git = (...args) => execFileSync('git', ['-C', repo, ...args], { encoding: 'utf8' }).trim();
 git('diff', '--exit-code', 'HEAD', '--', deck, 'package-lock.json');
+const workbench = 'skills/slideblocks/assets/workbench';
+const offlineBuilder = 'skills/slideblocks/assets/build-offline.mjs';
+git('diff', '--exit-code', 'HEAD', '--', workbench, offlineBuilder);
 const sourceSha = git('rev-parse', 'HEAD');
 const require = createRequire(join(repo, 'package.json'));
 const { parse, stringify } = require('yaml');
@@ -65,23 +68,37 @@ if (!match) throw new Error('Missing headmatter');
 const config = {
   ...parse(match[1]),
   titleTemplate: '%s · SlideBlocks',
-  presenter: false,
+  presenter: true,
   editor: false,
   browserExporter: false,
   download: false,
-  record: false,
-  contextMenu: false,
+  record: true,
+  contextMenu: true,
   wakeLock: false,
   pwa: false,
-  drawings: { enabled: false, persist: false },
+  drawings: { enabled: true, persist: false },
 };
-// Notes are removed before compilation as well as through the CLI flag.
-writeFileSync(slidesPath, `---\n${stringify(config)}---${slides.slice(match[0].length)}`.replace(/<!--[\s\S]*?-->/g, ''));
+// Keep this deck's presenter notes and all production workbench interactions.
+writeFileSync(slidesPath, `---\n${stringify(config)}---${slides.slice(match[0].length)}`);
+// Use the same product runtime as generated SlideBlocks presentations.
+// Only browser-side modules are copied; the development build bridge is excluded.
+mkdirSync(join(work, 'setup'), { recursive: true });
+const runtimeFiles = ['context-menu.ts', 'offline-export.ts', 'pdf-export.ts', 'routes.ts', 'shortcuts.ts', 'text-edit.ts'];
+for (const name of runtimeFiles) cpSync(join(repo, workbench, name), join(work, 'setup', name));
+cpSync(join(work, 'global-top.vue'), join(work, 'source-global-top.vue'));
+const bootstrap = readFileSync(join(repo, workbench, 'context-menu.vue'), 'utf8')
+  .replace('<script setup lang="ts">', '<script setup lang="ts">\nimport SourceGlobalTop from "./source-global-top.vue"')
+  .replace('<template>', '<template>\n  <SourceGlobalTop />');
+writeFileSync(join(work, 'global-top.vue'), bootstrap);
+mkdirSync(join(work, '.slideblocks'), { recursive: true });
+cpSync(join(repo, offlineBuilder), join(work, '.slideblocks/build-offline.mjs'));
 writeFileSync(join(work, 'vite.config.ts'), 'export default { build: { sourcemap: false } }\n');
 symlinkSync(join(repo, 'node_modules'), join(work, 'node_modules'), 'dir');
 execFileSync(join(repo, 'node_modules/.bin/slidev'), [
-  'build', 'slides.md', '--out', output, '--base', './', '--router-mode', 'hash', '--without-notes',
+  'build', 'slides.md', '--out', output, '--base', './', '--router-mode', 'hash',
 ], { cwd: work, stdio: 'inherit' });
+execFileSync(process.execPath, ['.slideblocks/build-offline.mjs'], { cwd: work, stdio: 'inherit' });
+cpSync(join(work, 'offline.html'), join(output, 'offline.html'));
 // Slidev generates a Netlify SPA fallback; this viewer must return real 404s.
 rmSync(join(output, '_redirects'), { force: true });
 
@@ -95,7 +112,7 @@ for (const file of files(output).filter(path => ['.js', '.css', '.html'].include
   writeFileSync(file, text);
 }
 const indexPath = join(output, 'index.html');
-const csp = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'";
+const csp = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob:; connect-src 'self'; media-src 'self' blob:; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'none'";
 writeFileSync(indexPath, readFileSync(indexPath, 'utf8').replace('<head>', `<head>\n<meta http-equiv="Content-Security-Policy" content="${csp}">\n<meta name="referrer" content="no-referrer">\n<link rel="icon" href="./black-hole.svg" type="image/svg+xml">`));
 
 // Preserve the original scientific credits and required font notices.
@@ -105,11 +122,11 @@ writeFileSync(join(output, 'LICENSES.txt'), notices.map(path => `${path}\n\n${re
 writeFileSync(join(output, '.nojekyll'), '');
 writeFileSync(join(output, '404.html'), '<!doctype html><html lang="en"><meta charset="utf-8"><title>Not found</title><p>Not found. This site only hosts the Sagittarius A* presentation.</p></html>\n');
 
-const forbidden = /Speaker Notes|Suggested duration|data-slideblocks-deck-exit|\/Users\/|localhost:|127\.0\.0\.1:|staging\.inteliway\.tech|api\.inteliway\.tech|sourceMappingURL|BEGIN (?:RSA |OPENSSH |EC )?PRIVATE KEY|ghp_[A-Za-z0-9]{30,}/;
+const forbidden = /data-slideblocks-deck-exit|\/Users\/|localhost:|127\.0\.0\.1:|staging\.inteliway\.tech|api\.inteliway\.tech|sourceMappingURL|BEGIN (?:RSA |OPENSSH |EC )?PRIVATE KEY|ghp_[A-Za-z0-9]{30,}/;
 const inventory = {};
 for (const file of files(output)) {
   const path = relative(output, file);
-  if (!(publicAssets.includes(path) || /^assets\/(?:(?:modules|slidev)\/)?[\w.-]+\.(js|css|woff2?|ttf|otf|svg|png|jpg)$/.test(path) || ['index.html', '404.html', '.nojekyll', 'ASSET-CREDITS.txt', 'LICENSES.txt'].includes(path))) {
+  if (!(publicAssets.includes(path) || /^assets\/(?:(?:modules|slidev)\/)?[\w.-]+\.(js|css|woff2?|ttf|otf|svg|png|jpg)$/.test(path) || ['index.html', 'offline.html', '404.html', '.nojekyll', 'ASSET-CREDITS.txt', 'LICENSES.txt'].includes(path))) {
     throw new Error(`Unexpected published file: ${path}`);
   }
   if (['.html', '.txt'].includes(extname(file))) {
@@ -124,7 +141,10 @@ const manifest = {
   sourceLockSha256: createHash('sha256').update(readFileSync(join(repo, 'package-lock.json'))).digest('hex'),
   builderSha256: createHash('sha256').update(readFileSync(new URL(import.meta.url))).digest('hex'),
   slidev: require('@slidev/cli/package.json').version,
-  viewerOnly: true, files: inventory,
+  isolatedStatic: true, fullWorkbench: true,
+  runtimeSha256: Object.fromEntries([...runtimeFiles.map(name => join(workbench, name)), join(workbench, 'context-menu.vue'), offlineBuilder]
+    .map(path => [path, createHash('sha256').update(readFileSync(join(repo, path))).digest('hex')])),
+  files: inventory,
 };
 writeFileSync(join(output, 'manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`);
 console.log(`Verified ${Object.keys(inventory).length} public files. Viewer output: ${output}`);

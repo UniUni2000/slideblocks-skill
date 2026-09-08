@@ -15,7 +15,9 @@ assert(base.pathname.endsWith('/'), 'Base URL must end in /');
 const localManifest = readFileSync(join(local, 'manifest.json'));
 const manifest = JSON.parse(localManifest);
 assert.equal(manifest.deck, 'sgr-a-discovery');
-assert.equal(manifest.viewerOnly, true);
+assert.equal(manifest.isolatedStatic, true);
+assert.equal(manifest.fullWorkbench, true);
+assert(manifest.files['offline.html'], 'Missing downloadable offline player');
 const run = promisify(execFile);
 const request = async (path, options = {}) => {
   const url = new URL(path, base);
