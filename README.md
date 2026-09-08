@@ -24,6 +24,11 @@ Try native HTML for your next presentation. Give your agent your materials and r
   <a href="media/star-formation.webp">Star Formation · 5 slides ↗</a>
 </p>
 
+<p align="center">
+  <a href="https://uniuni2000.github.io/slideblocks-skill/#/1"><strong>▶ Try the interactive Sagittarius A* presentation</strong></a><br>
+  Open in your browser · No installation · View-only demo
+</p>
+
 <!-- Real English PDF exports. Selected pages: Agent Harness 11,12,14,16; M87 4,5,6,7,9,10,11; Star Formation 2,3,4,5,7 (hybrid imagery version). Figure credits remain on the slides. -->
 
 ## Get started

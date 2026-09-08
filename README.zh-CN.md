@@ -24,6 +24,11 @@
   <a href="media/star-formation.webp">Star Formation · 5 页精选 ↗</a>
 </p>
 
+<p align="center">
+  <a href="https://uniuni2000.github.io/slideblocks-skill/#/1"><strong>▶ 在线体验《图像之前：人马座 A*》交互演示（英文）</strong></a><br>
+  浏览器直接打开 · 无需安装 · 只读展示
+</p>
+
 ## 开始使用
 
 给 Agent 安装 skill：
