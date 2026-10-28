@@ -47,6 +47,6 @@ Vary palette, background, editorial character, illustration treatment, and inter
 
 ## Selecting and synthesizing a direction
 
-Choose one strongest direction internally by adapting or combining the verified profiles with the actual story. Present alternatives only when the user explicitly asks for variants.
+Choose one strongest direction by adapting or combining the verified profiles with the actual story and the user's applied tastes from `taste-profile.md`. Present alternatives only when the user explicitly asks for variants or when its cold-start sample step applies.
 
 These profiles are not a closed style list. When neither verified profile fits, use `design-principles.md` to synthesize a custom direction from the content, audience, brand, selected Registry Artifacts, and communication goal. Record it as a custom direction; do not name it as a verified profile until a real Registry Deck has exercised and passed it.

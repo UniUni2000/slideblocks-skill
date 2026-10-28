@@ -167,13 +167,16 @@ function deriveApiUrl(siteUrl) {
   return site.origin;
 }
 
-function resolveConfigPath(env) {
-  const directory = env.SLIDEBLOCKS_CONFIG_DIR
+export function resolveConfigDirectory(env) {
+  return env.SLIDEBLOCKS_CONFIG_DIR
     ? resolve(env.SLIDEBLOCKS_CONFIG_DIR)
     : env.XDG_CONFIG_HOME
       ? resolve(env.XDG_CONFIG_HOME, 'slideblocks')
       : resolve(env.HOME || homedir(), '.config', 'slideblocks');
-  return join(directory, 'config.json');
+}
+
+function resolveConfigPath(env) {
+  return join(resolveConfigDirectory(env), 'config.json');
 }
 
 function defaultConfig() {
@@ -756,6 +759,92 @@ async function loginCommand(args, context) {
     return;
   }
   throw new SlideBlocksClientError('expired_token', 'Device authorization expired. Run login again.');
+}
+
+// The planning view of a taste profile: watch items stay out of what the agent applies,
+// and every scenario with a direction gets the line the agent says first.
+function tasteView(text) {
+  const content = [];
+  const directions = [];
+  const tastes = [];
+  let section = null;
+  let taste = null;
+  let watchNote = -1;
+  let hiddenWatchItems = 0;
+  for (const line of text.split(/\r?\n/u)) {
+    const heading = line.match(/^##\s+(.+?)\s*$/u);
+    if (heading) {
+      section = heading[1];
+      taste = null;
+      content.push(line);
+      if (section === '再观察') watchNote = content.length;
+      continue;
+    }
+    if (section === '再观察' && line.startsWith('- ')) {
+      hiddenWatchItems += 1;
+      continue;
+    }
+    content.push(line);
+    if (section === '各场景的方向' && line.startsWith('- ')) directions.push(line.slice(2).trim());
+    if (section !== '口味') continue;
+    const title = line.match(/^###\s+(.+?)\s*$/u);
+    if (title) {
+      taste = { title: title[1].replace(/。$/u, ''), scope: '全部' };
+      tastes.push(taste);
+      continue;
+    }
+    const scope = taste && line.match(/^- 场景[:：]\s*(.+?)\s*$/u);
+    if (scope) taste.scope = scope[1];
+  }
+  if (hiddenWatchItems > 0) {
+    const items = `${hiddenWatchItems} watch item${hiddenWatchItems === 1 ? '' : 's'}`;
+    content.splice(watchNote, 0, `(${items} hidden: watch items are never applied. Read taste.md at delivery to match new signals.)`);
+  }
+  const openingLines = directions.flatMap((entry) => {
+    const match = entry.match(/^(.+?)[:：]\s*(.+)$/u);
+    if (!match) return [];
+    const scenario = match[1].trim();
+    const name = match[2].split(/[，,（(]/u)[0].trim() || match[2].trim();
+    const applied = tastes.filter((item) => item.scope === '全部' || item.scope === scenario).map((item) => item.title);
+    const parts = [name, ...applied.slice(0, 3)];
+    if (applied.length > 3) parts.push(`另有 ${applied.length - 3} 条口味`);
+    return [{ scenario, line: `这次按你的口味做（${scenario}）：${parts.join('；')}。想改随时说。` }];
+  });
+  return { content: content.join('\n'), openingLines, hiddenWatchItems };
+}
+
+async function tasteCommand(args, context) {
+  const { positionals, options } = parseOptions(args, { '--json': 'boolean' });
+  if (positionals.length > 0) {
+    throw new SlideBlocksClientError('INVALID_ARGUMENT', 'taste does not accept positional arguments.');
+  }
+  const directory = resolveConfigDirectory(context.env);
+  const userProfile = join(directory, 'taste.md');
+  const projectProfile = resolve(process.cwd(), '.slideblocks', 'taste.md');
+  const profile = existsSync(userProfile) ? userProfile : null;
+  const project = existsSync(projectProfile) ? projectProfile : null;
+  const inUse = profile ?? project;
+  const view = inUse ? tasteView(readFileSync(inUse, 'utf8')) : null;
+  if (options.json) {
+    outputJson(context.stdout, {
+      directory,
+      profile,
+      projectProfile: project,
+      content: view?.content ?? null,
+      openingLines: view?.openingLines ?? [],
+      hiddenWatchItems: view?.hiddenWatchItems ?? 0
+    });
+    return;
+  }
+  const lines = [`directory: ${directory}`, `profile: ${profile ?? 'none'}`, `project profile: ${project ?? 'none'}`, ''];
+  if (view?.openingLines.length) {
+    lines.push(
+      "First message (say the line for this deck's scenario word for word; a scenario without a line gets cold-start samples):",
+      ...view.openingLines.map(({ scenario, line }) => `- ${scenario}: ${line}`),
+      ''
+    );
+  }
+  context.stdout.write(lines.join('\n') + (view ? `\n${view.content}` : ''));
 }
 
 async function statusCommand(args, context) {
@@ -1442,6 +1531,7 @@ function help(locale) {
   slideblocks artifact get <artifact-id> [--variant 名称] [--prompt 文件] [--source 文件]
   slideblocks skill update
   slideblocks skill uninstall
+  slideblocks taste [--json]
 
 公开 Catalog、Prompt 与可用源码无需登录；login 仅用于可选的账户连接。
 通用选项：--json、--locale en|zh-CN、--help、--version
@@ -1459,6 +1549,7 @@ Usage:
   slideblocks artifact get <artifact-id> [--variant NAME] [--prompt FILE] [--source FILE]
   slideblocks skill update
   slideblocks skill uninstall
+  slideblocks taste [--json]
 
 Published Catalog, Prompt, and available source retrieval require no login; login is optional account connection.
 Global options: --json, --locale en|zh-CN, --help, --version
@@ -1507,7 +1598,8 @@ export async function runCli(argv, dependencies = {}) {
     logout: logoutCommand,
     catalog: catalogCommand,
     artifact: artifactCommand,
-    skill: skillCommand
+    skill: skillCommand,
+    taste: tasteCommand
   };
   const handler = commands[command];
   if (!handler) throw new SlideBlocksClientError('INVALID_ARGUMENT', `Unknown command: ${command}`);

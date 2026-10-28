@@ -705,7 +705,8 @@ function collectSourceFiles(root, entryPath) {
       if (item.isSymbolicLink()) continue;
       const path = join(directory, item.name);
       if (item.isDirectory()) {
-        if (!SKIPPED_DIRECTORIES.has(item.name)) visit(path);
+        // Hidden directories hold tooling, such as a project-level Agent Skill install, not deck source.
+        if (!SKIPPED_DIRECTORIES.has(item.name) && !item.name.startsWith('.')) visit(path);
         continue;
       }
       if (!item.isFile() || !SOURCE_EXTENSIONS.has(extname(item.name).toLowerCase())) continue;
@@ -809,6 +810,38 @@ function resolveImport(root, sourceFile, reference) {
   return candidates.find((candidate) => existsSync(candidate));
 }
 
+const HALF_WIDTH_NEAR_HAN = /\p{Script=Han}[,;:!?'"()]|[,;:!?'"()]\p{Script=Han}|\p{Script=Han}\./gu;
+const HIDDEN_SLIDE_TEXT = [
+  /<!--[\s\S]*?-->/gu,
+  /<style[\s\S]*?<\/style>/giu,
+  /<script[\s\S]*?<\/script>/giu,
+  /\$\$[\s\S]*?\$\$/gu,
+  /\$[^$\n]+\$/gu,
+  /`[^`\n]*`/gu,
+  /\{\{[\s\S]*?\}\}/gu,
+  /\]\([^)\n]*\)/gu,
+  /<[^>]*>/gu
+];
+
+const blank = (text) => text.replace(/[^\n]/gu, ' ');
+
+// Slide text a viewer reads, with everything else blanked so offsets still map to source lines.
+function visibleSlideText(file, content) {
+  let text = content;
+  if (extname(file).toLowerCase() === '.vue') {
+    const start = text.indexOf('<template');
+    const end = text.lastIndexOf('</template>');
+    if (start === -1 || end === -1) return '';
+    text = blank(text.slice(0, start)) + text.slice(start, end) + blank(text.slice(end));
+  } else {
+    const frontmatter = text.match(/^﻿?---\r?\n[\s\S]*?\n---[^\n]*/u);
+    if (frontmatter) text = blank(frontmatter[0]) + text.slice(frontmatter[0].length);
+    text = text.replace(/^(```|~~~)[^\n]*\n[\s\S]*?^\1[^\n]*$/gmu, blank);
+  }
+  for (const pattern of HIDDEN_SLIDE_TEXT) text = text.replace(pattern, blank);
+  return text;
+}
+
 function validateSourceFiles(root, sourceFiles, issues) {
   let resourceCount = 0;
   let placeholderCount = 0;
@@ -856,6 +889,25 @@ function validateSourceFiles(root, sourceFiles, issues) {
           lineAt(content, match.index)
         )
       );
+    }
+
+    if (['.md', '.vue'].includes(extname(file).toLowerCase())) {
+      const reported = new Set();
+      for (const match of visibleSlideText(file, content).matchAll(HALF_WIDTH_NEAR_HAN)) {
+        const line = lineAt(content, match.index);
+        if (reported.has(line)) continue;
+        reported.add(line);
+        const excerpt = content.slice(Math.max(0, match.index - 8), match.index + 10).replace(/\s+/gu, ' ').trim();
+        addUnique(
+          makeIssue(
+            'error',
+            'CJK_HALF_WIDTH_PUNCTUATION',
+            `Chinese text uses half-width punctuation near "${excerpt}"; use full-width marks (，。：；！？「」“”（）) next to Chinese characters.`,
+            displayedFile,
+            line
+          )
+        );
+      }
     }
 
     for (const { label, pattern } of PLACEHOLDER_PATTERNS) {
@@ -2374,6 +2426,111 @@ function validWorkflowInput(input, root) {
   }
 }
 
+const TASTE_SIGNAL_ID = /^- (S\d{3,}) · /gmu;
+
+export function parseTasteProfile(text) {
+  const directions = [];
+  const tastes = [];
+  const watch = [];
+  let section = null;
+  let current = null;
+  for (const line of String(text).split(/\r?\n/u)) {
+    const heading = line.match(/^##\s+(.+?)\s*$/u);
+    if (heading) {
+      section = heading[1];
+      current = null;
+      continue;
+    }
+    if (section === '各场景的方向' && line.startsWith('- ')) directions.push(line.slice(2).trim());
+    if (section === '再观察' && line.startsWith('- ')) watch.push(line.slice(2).trim());
+    if (section !== '口味') continue;
+    const title = line.match(/^###\s+(.+?)\s*$/u);
+    if (title) {
+      current = { title: title[1], scope: '全部', evidence: [] };
+      tastes.push(current);
+      continue;
+    }
+    if (!current) continue;
+    const scope = line.match(/^- 场景[:：]\s*(.+?)\s*$/u);
+    if (scope) current.scope = scope[1];
+    else if (/^\s{2,}- /u.test(line)) current.evidence.push(line.trim().slice(2).trim());
+  }
+  return { directions, tastes, watch };
+}
+
+export function checkTasteProfile(profile) {
+  const issues = [];
+  if (profile.tastes.length > 12) issues.push(`${profile.tastes.length} tastes exceed the limit of 12.`);
+  if (profile.watch.length > 10) issues.push(`${profile.watch.length} watch items exceed the limit of 10.`);
+  for (const taste of profile.tastes) {
+    const length = [...taste.title].length;
+    if (length > 60) issues.push(`Taste "${taste.title}" has ${length} characters; the limit is 60.`);
+    const marked = taste.evidence.some((line) => line.includes('你写的') || line.includes('你说记住'));
+    if (taste.evidence.length < 2 && !marked) {
+      issues.push(`Taste "${taste.title}" needs two evidence lines, or one marked 你写的 or 你说记住.`);
+    }
+  }
+  return issues;
+}
+
+function readTasteProfileCheck(root) {
+  let state;
+  try {
+    state = JSON.parse(readFileSync(join(root, '.slideblocks', 'workflow-state.json'), 'utf8'));
+  } catch {
+    return null;
+  }
+  const profilePath = state?.schemaVersion === 2 ? state?.taste?.profile : null;
+  if (typeof profilePath !== 'string' || profilePath.length === 0) return null;
+  let text;
+  try {
+    text = readFileSync(resolve(root, profilePath), 'utf8');
+  } catch {
+    return null;
+  }
+  const issues = checkTasteProfile(parseTasteProfile(text));
+  return { ok: issues.length === 0, issues };
+}
+
+function validateTasteState(state, root, contractSections) {
+  const taste = state.taste;
+  if (!taste || typeof taste !== 'object' || Array.isArray(taste)) {
+    return ['schemaVersion 2 requires a taste object with profile, scenario, samples, choice, and distilledThrough.'];
+  }
+  const problems = [];
+  if (!(taste.profile === null || (typeof taste.profile === 'string' && taste.profile.length > 0))) {
+    problems.push('taste.profile must be the profile path or null.');
+  }
+  if (typeof taste.scenario !== 'string' || taste.scenario.trim() === '') {
+    problems.push('taste.scenario must name the scenario.');
+  }
+  if (typeof taste.samples !== 'string' || !/^(shown|skipped:.+)$/u.test(taste.samples)) {
+    problems.push('taste.samples must be "shown" or "skipped:<reason>".');
+  }
+  if (!(taste.choice === null || typeof taste.choice === 'string')) {
+    problems.push('taste.choice must be a string or null.');
+  }
+  if (!(taste.distilledThrough === null || (typeof taste.distilledThrough === 'string' && /^S\d{3,}$/u.test(taste.distilledThrough)))) {
+    problems.push('taste.distilledThrough must be a signal ID such as S004, or null.');
+  }
+  const applied = contractSections['.slideblocks/page-plan.md']?.get('taste applied');
+  if (!applied || !hasSubstantiveMarkdown(applied)) {
+    problems.push('page-plan.md needs a non-empty "### Taste applied" subsection under Visual direction.');
+  }
+  if (taste.samples === 'shown' && !existsSync(join(root, '.slideblocks', 'samples', 'index.html'))) {
+    problems.push('taste.samples is "shown" but .slideblocks/samples/index.html does not exist.');
+  }
+  const signalsPath = join(root, '.slideblocks', 'taste-signals.md');
+  const ids = existsSync(signalsPath)
+    ? [...readFileSync(signalsPath, 'utf8').matchAll(TASTE_SIGNAL_ID)].map((match) => match[1])
+    : [];
+  const last = ids.at(-1) ?? null;
+  if (taste.distilledThrough !== last) {
+    problems.push(`taste.distilledThrough must equal the last signal in .slideblocks/taste-signals.md (${last ?? 'none'}).`);
+  }
+  return problems;
+}
+
 function validateProjectContract(root, entryPath, slides, issues) {
   const checks = {
     markdown: {},
@@ -2866,7 +3023,7 @@ function validateProjectContract(root, entryPath, slides, issues) {
       new Set(stateInputKeys).size === stateInputKeys.length &&
       expectedInputKeys.every((key) => stateInputKeys.includes(key));
     const valid =
-      state.schemaVersion === 1 &&
+      (state.schemaVersion === 1 || state.schemaVersion === 2) &&
       PROJECT_ROUTES.has(state.route) &&
       WORKFLOW_STAGES.has(state.stage) &&
       WORKFLOW_STATUSES.has(state.status) &&
@@ -2900,6 +3057,15 @@ function validateProjectContract(root, entryPath, slides, issues) {
       );
     }
     checks.workflowState = valid;
+    if (state.schemaVersion === 2) {
+      const tasteProblems = validateTasteState(state, root, contractSections);
+      for (const problem of tasteProblems) {
+        issues.push(makeIssue('error', 'TASTE_STATE_INVALID', problem, '.slideblocks/workflow-state.json'));
+      }
+      checks.taste = tasteProblems.length === 0;
+    } else {
+      checks.taste = null;
+    }
   } else {
     checks.workflowState = false;
   }
@@ -3093,6 +3259,7 @@ export function validateSlideblocksProject({ entry, projectRoot = process.cwd() 
     result.checks.projectContract = validateProjectContract(root, entryPath, slides, issues);
   }
 
+  result.checks.tasteProfile = readTasteProfileCheck(root);
   result.checks.bilingualReadme = validateBilingualReadme(root, issues);
   result.checks.offlineOutput = validateOfflineOutput(root, issues);
 

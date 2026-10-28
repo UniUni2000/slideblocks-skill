@@ -97,6 +97,7 @@ served and offline.
 Test repeated editing, immediate/repeated undo/redo, source mismatch, and denied
 storage. Require dev edit → export → copied-file edit/save → reload → re-export →
 fresh-context/new-path open → print latest text. Block file-playback network;
-preserve navigation/formatting/controls/reduced-motion. Save PDF with backgrounds; inspect page count,
+preserve navigation/formatting/controls/reduced-motion. `npm run test:workbench`
+builds this canonical fixture. Save PDF with backgrounds; inspect page count,
 latest/vector text, and no trailing blank page. Markers, print readiness, hidden
 panels, or failed exports prove no delivery.

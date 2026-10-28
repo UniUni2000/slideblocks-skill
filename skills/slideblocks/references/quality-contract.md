@@ -17,14 +17,14 @@ The required stack is:
 
 ## Adaptive Autonomous Execution Contract
 
-This is one adaptive execution prompt. Do not ask the user to choose a workflow, declare an expertise level, select reproduction versus adaptation, approve an outline, or pick among visual directions. Infer the correct route from the user's request, supplied material, current workspace, and the selected SlideBlocks Artifact.
+This is one adaptive execution prompt. Do not ask the user to choose a workflow, declare an expertise level, select reproduction versus adaptation, approve an outline, or pick among visual directions outside the SlideBlocks Skill's cold-start sample step. Infer the correct route from the user's request, supplied material, current workspace, and the selected SlideBlocks Artifact.
 
 ### Default autonomy
 
 - Begin with a silent audit of the user's request, source material, current presentation, local assets, project rules, and available tools. Use information that can be inspected or safely inferred instead of asking the user to repeat it.
 - Treat a direct request to create or improve a presentation as authorization for ordinary local, reversible work inside the stated scope: inspect scoped files, create or edit presentation files, install normal project dependencies, run previews and builds, render screenshots, generate explicitly requested local non-Office exports, and repair defects introduced by the task.
 - Plan internally and continue. Do not require approval of an outline or implementation plan before producing the first visual draft. Keep progress updates brief and useful when the work takes time.
-- Choose one strongest visual direction and execute it. Do not hedge by presenting several stylistic alternatives unless the user explicitly asks for variants.
+- Choose one strongest visual direction and execute it. Present alternatives only when the user explicitly asks for variants or when the SlideBlocks Skill's cold-start sample step applies.
 - When the user's brief is detailed enough, implement it directly. When it is incomplete, infer safe defaults and build a polished, renderable visual hypothesis with clearly recognizable semantic placeholders. Do not block the first draft merely because copy, metrics, or factual assets are missing.
 - Do not publish externally, purchase or enable paid services, broaden third-party permissions, delete uncertain files, overwrite unrelated work, or perform another destructive or irreversible action without explicit authorization.
 
@@ -53,6 +53,7 @@ This is one adaptive execution prompt. Do not ask the user to choose a workflow,
 
 - Do not present the first successful render as the result. Inspect the real presentation viewport after fonts and assets load, repair obvious visual and technical defects, and render again. Show the first reviewed draft, not the first raw render.
 - Treat follow-up feedback as a delta against the latest accepted draft. Preserve content, layout, assets, motion, and project structure that the user did not ask to change; repair the visual side effects of the requested change and rerun the affected checks.
+- In the SlideBlocks Skill's taste workflow, vague taste feedback such as 「有点 AI 味」 is a planned question, not an interruption to avoid: name the concrete elements you suspect in one sentence and ask before changing them.
 - Lead the final response with the visual result or the shortest exact path to view it. Then concisely report what was created, important assumptions, visible placeholders, verification evidence, source location, and genuine limitations. Do not bury the result beneath implementation logs.
 
 ## First-Run Project Routing
@@ -211,6 +212,7 @@ Treat the copied component source as a starting point for a real Slidev slide, n
 - Avoid automatic three-part lists, mirrored slogan syntax, rhetorical questions answered immediately, inflated significance, and generic closing claims such as “这不是终点，而是新的起点” unless the source, speaker, or event genuinely requires that rhetoric.
 - Replace vague authorities and abstractions with named actors, concrete nouns, active verbs, numbers, conditions, and traceable evidence. State uncertainty directly instead of hiding it behind ceremonial wording.
 - Read every visible sentence aloud after layout. If its subject could be swapped for an unrelated topic without changing the sentence, rewrite it until it belongs to this deck. Preserve useful scientific, legal, or decision contrasts; do not flatten precise meaning merely to avoid a familiar construction.
+- Write Chinese visible text with full-width punctuation (，。：；！？「」“”（）); keep half-width characters only inside Latin words, numbers, units, code and formulas.
 
 ### Icon Usage
 

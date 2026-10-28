@@ -34,7 +34,7 @@ Sample color from the user's brand, source imagery, or the subject's real contex
 
 Treat verified style profiles as proven starting points, not a closed menu. When none fits, synthesize a custom direction from the story, selected Artifacts, audience, brand, and communication goal; record it as custom rather than calling it a verified profile.
 
-For decks of five or more slides, stabilize the grammar on two high-risk page roles with different content and material needs before expanding it across the deck. Review and repair real defects internally; do not turn this into a user approval gate.
+For decks of five or more slides, stabilize the grammar on two high-risk page roles with different content and material needs before expanding it across the deck. Review and repair real defects internally. On a cold start these two pages also become the user's samples, as `taste-profile.md` describes; otherwise they are not a user approval gate.
 
 ## Compose one continuous canvas
 

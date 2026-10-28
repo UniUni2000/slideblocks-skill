@@ -346,7 +346,7 @@ Write valid JSON with this minimal shape:
 
 ```json
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "route": "new-deck",
   "stage": "execution",
   "status": "in-progress",
@@ -358,7 +358,14 @@ Write valid JSON with this minimal shape:
       "sha256": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
     }
   ],
-  "blockers": []
+  "blockers": [],
+  "taste": {
+    "profile": "/Users/name/.config/slideblocks/taste.md",
+    "scenario": "学术报告",
+    "samples": "skipped:profile covers this scenario",
+    "choice": null,
+    "distilledThrough": null
+  }
 }
 ```
 
@@ -371,6 +378,17 @@ Allowed stages are `intake`, `strategy`, `registry`, `assets`, `execution`, `qa`
 - If an input fingerprint changes, return to intake, update dependent planning artifacts, and regenerate downstream work.
 - At successful handoff use `stage: "delivery"`, `status: "complete"`, `resumeFrom: null`, and an empty `blockers` array.
 - A blocked state names the smallest owning stage and exact missing artifact or decision.
+
+### Taste state (schemaVersion 2)
+
+New projects write `schemaVersion: 2` with the `taste` object shown in the example above, as `taste-profile.md` describes.
+
+- `profile` is the profile path or null; `scenario` names the scenario; `samples` is `shown` or `skipped:<reason>`; `choice` is the chosen sample letter or null; `distilledThrough` is the last distilled signal ID or null.
+- `samples: "shown"` requires `.slideblocks/samples/index.html`, the sample sheet, with its screenshots beside it in `.slideblocks/samples/`.
+- `.slideblocks/taste-signals.md` is append-only; each line starts with `- S<NNN> · `. At handoff `distilledThrough` equals the last signal ID, or is null when there are no signals.
+- `page-plan.md` keeps a non-empty `### Taste applied` subsection at the end of `## Visual direction`.
+- While the user chooses a sample direction, use `status: "blocked"` and `resumeFrom: "samples"`.
+- `schemaVersion: 1` projects have no `taste` object and remain valid.
 
 ## QA report minimum
 
