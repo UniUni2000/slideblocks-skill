@@ -1089,14 +1089,16 @@ async function inspectCurrentSlide(page, { expectedRoutes, pageNumber, state }) 
 			const label = describe(svg)
 			const fail = (code, detail, actual = 0, required = 1) => add(code, label, actual, required, detail)
 			const version = svg.getAttribute('data-mermaid-version') || ''
+			const renderer = svg.getAttribute('data-mermaid-renderer') ?? 'mermaid'
 			const viewBox = svg.viewBox.baseVal
 			if (svg.getAttribute('data-slideblocks-mermaid') !== 'final'
+				|| !['mermaid', 'pele'].includes(renderer)
 				|| !/^\d+\.\d+\.\d+(?:[-+].+)?$/u.test(version)
 				|| !svg.getAttribute('aria-roledescription')?.trim()
 				|| !(viewBox.width > 0 && viewBox.height > 0)
 				|| svg.hasAttribute('data-slideblocks-diagram')
 				|| svg.querySelector('[data-node-id], [data-edge-id]')) {
-				fail('MERMAID_METADATA_INVALID', 'requires native type, actual version, viewBox, final Mermaid role and no impersonated DiagramSpec ownership')
+				fail('MERMAID_METADATA_INVALID', 'requires a known renderer, native type, actual version, viewBox, final Mermaid role and no impersonated DiagramSpec ownership')
 			}
 			const matrix = svg.getScreenCTM()
 			const xScale = matrix ? Math.hypot(matrix.a, matrix.b) : 0
@@ -1145,7 +1147,11 @@ async function inspectCurrentSlide(page, { expectedRoutes, pageNumber, state }) 
 					|| !renderChainVisible(el)) continue
 				const textStyle = getComputedStyle(el)
 				if (el.closest('foreignObject') ? transparent(textStyle.color)
-					: transparent(textStyle.fill) && transparent(textStyle.stroke)) continue
+					: transparent(textStyle.fill) && transparent(textStyle.stroke)) {
+					// Native Mermaid keeps hidden helper text; pele paints every label it draws.
+					if (renderer === 'pele') fail('MERMAID_TEXT_INVISIBLE', `text ${JSON.stringify(node.textContent.trim())} has no visible paint; set --pele-bg to the real background`)
+					continue
+				}
 				const range = document.createRange()
 				range.selectNodeContents(node)
 				const boxes = [...range.getClientRects()].filter(box => box.width > 0 && box.height > 0)
@@ -1157,7 +1163,7 @@ async function inspectCurrentSlide(page, { expectedRoutes, pageNumber, state }) 
 				const fontPx = parseFloat(getComputedStyle(el).fontSize)
 					* (transform ? Math.min(Math.hypot(transform.a, transform.b), Math.hypot(transform.c, transform.d)) : xScale)
 					* 1280 / slideRect.width
-				const nodeLabel = el.closest('.node, .actor, .cluster-label')
+				const nodeLabel = el.closest('.node, .actor, .cluster-label, .pele-node, .pele-cluster-label')
 				const minimum = nodeLabel ? 22 : 18
 				if (!Number.isFinite(fontPx) || fontPx + 0.1 < minimum) {
 					fail('MERMAID_TEXT_SMALL', `text ${JSON.stringify(node.textContent.trim())} at 1280px slide width`, fontPx || 0, minimum)

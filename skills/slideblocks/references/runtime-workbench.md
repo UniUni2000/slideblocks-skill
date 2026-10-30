@@ -58,8 +58,8 @@ The verifier enumerates hash routes. Use a hash-routed production preview for it
 full gate; inspect history-routed development pages by their actual URLs. Keep the
 offline download byte-identical to the generated file, without injected Vite scripts.
 
-Native `diagram:mermaid` has a separate final-output contract: inline native SVG,
-actual renderer version/type, visible graphics and labels, uniform scaling,
+`diagram:mermaid` has a separate final-output contract: inline SVG, actual
+renderer, version and type, visible graphics and labels, uniform scaling,
 readable final-size type, label/viewport containment, and local arrowhead references.
 Do not relabel it as SlideBlocks semantic SVG. Follow `mermaid-presentation.md`
 for source and rendered review of type-specific meaning, collisions, resolved

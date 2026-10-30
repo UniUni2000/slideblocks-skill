@@ -34,7 +34,7 @@ When the composite must satisfy a primary explanation slot, register the final d
 ## Route implementation dependencies by visual grammar
 
 - Curves and parameterized paths inside a subject-specific renderer may use `d3-shape`; legitimate data or model mappings may use `d3-scale`. Neither dependency supplies semantic fields, labels, units, or provenance by itself.
-- Native Mermaid loads only the selected type's required packages and optional local icon collection. Custom DiagramSpec graphs use `elkjs` for candidate geometry.
+- The `diagram:mermaid` route installs `pele` with an exact version; its native `mermaid` fallback loads only the selected type's required packages and optional local icon collection. Custom DiagramSpec graphs use `elkjs` for candidate geometry.
 - For an explicitly experimental presentation-sized graph, `diagram-spec.md` documents the bounded fit adapter and local icon lookup. Its current rectangular-node subset does not implement every semantic feature mentioned in the route above; do not silently drop groups, lanes, ranks or shapes. A first-fit result remains a candidate for full-slide review.
 - Spatial, physical, biological, and other concept visuals use suitable native SVG marks, the hybrid object workflow, or a supported bounded FigureSpec visual renderer with named anchors.
 - Formulas reuse the presentation project's KaTeX rather than introducing a second formula stack.
