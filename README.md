@@ -38,6 +38,8 @@ Install the skill for your agent:
 npx skills add UniUni2000/slideblocks-skill
 ```
 
+Describe your audience and goal for research talks, programming lessons, or work-progress reports. The skill selects task guidance and a visual direction.
+
 For example, attach your materials and ask:
 
 > Use SlideBlocks to turn this paper into a 15-minute research talk in English.

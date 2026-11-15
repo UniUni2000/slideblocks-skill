@@ -179,8 +179,25 @@ export function createOfflineBuildMiddleware(root: string) {
   }
 }
 
+export function createNativeMarkCompatibility(): Plugin {
+  return {
+    name: 'slideblocks:native-mark-context',
+    enforce: 'pre',
+    transform(source, id) {
+      if (!/\/@slidev\/client\/modules\/v-mark\.ts(?:\?|$)/.test(id)) return
+      const original = 'const { isPrintMode } = useNav()'
+      // Newer upstream implementations that no longer make this call need
+      // no patch. Keep the native click resolver and renderer untouched.
+      if (!source.includes(original)) return
+      return source.replace(original, `const isPrintMode = computed(() =>
+        new URLSearchParams(location.search).has('print')
+        || (binding.instance as any)?.$route?.name === 'export')`)
+    },
+  }
+}
+
 export default function slideblocksWorkbenchPlugins(): Plugin[] {
-  return [{
+  return [createNativeMarkCompatibility(), {
     name: 'slideblocks:offline-build',
     configureServer(server) {
       const middleware = createOfflineBuildMiddleware(server.config.root)

@@ -353,9 +353,13 @@ function assertOfflineHtml(html) {
       throw new Error(`offline.html still references an external media asset: ${match[1]}`);
     }
   }
-  for (const match of structuralHtml.matchAll(/url\(\s*["']?([^"')]+)["']?\s*\)/giu)) {
-    if (!/^(?:data:|blob:|#|%23)/iu.test(match[1])) {
-      throw new Error(`offline.html still references an external CSS asset: ${match[1]}`);
+  // Keep the ASCII CSS grammar separate from the possibly multi-megabyte
+  // data URL. Optional quotes plus Unicode case folding can exhaust V8's
+  // regexp stack when a full CJK font is embedded in a Unicode document.
+  for (const match of structuralHtml.matchAll(/url\(\s*(?:"([^"]*)"|'([^']*)'|([^)]*))\s*\)/gi)) {
+    const reference = (match[1] ?? match[2] ?? match[3]).trim();
+    if (reference && !/^(?:data:|blob:|#|%23)/iu.test(reference)) {
+      throw new Error(`offline.html still references an external CSS asset: ${reference}`);
     }
   }
   const automaticExternalRequests = [

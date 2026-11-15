@@ -104,6 +104,25 @@ function collectEvidenceRefs(page, mode) {
 	return refs
 }
 
+function sourceAssetKinds(markdown) {
+	const section = markdown.split(/^## Reusable assets\s*$/mu)[1]?.split(/^## /mu)[0] ?? ''
+	const kinds = new Map()
+	let idColumn = -1
+	let kindColumn = -1
+	for (const line of section.split('\n')) {
+		if (!line.trim().startsWith('|')) continue
+		const cells = line.trim().split('|').slice(1, -1).map(cell => cell.trim())
+		if (cells.includes('Asset ID') && cells.includes('Kind')) {
+			idColumn = cells.indexOf('Asset ID')
+			kindColumn = cells.indexOf('Kind')
+		}
+		else if (idColumn >= 0 && /^A\d{2}$/u.test(cells[idColumn] ?? '')) {
+			kinds.set(cells[idColumn], cells[kindColumn])
+		}
+	}
+	return kinds
+}
+
 async function loadExecutionRouteContract() {
 	const path = await resolveExecutionLockPath()
 	let lock
@@ -116,6 +135,12 @@ async function loadExecutionRouteContract() {
 	if (!Array.isArray(lock?.slideOrder) || !lock.composition?.pages) {
 		throw new Error(`Execution lock lacks slideOrder or composition.pages: ${path}`)
 	}
+	// Native code excerpts and executable teaching documents can also use
+	// .mjs/.vue. Match the structural validator's source-map kind boundary;
+	// missing metadata retains the existing conservative extension check.
+	let kinds = new Map()
+	try { kinds = sourceAssetKinds(await readFile(join(dirname(path), 'source-map.md'), 'utf8')) }
+	catch (error) { if (error?.code !== 'ENOENT') throw error }
 	const assets = new Map()
 	for (const asset of lock.requiredAssets ?? []) {
 		if (asset?.id === undefined) continue
@@ -134,10 +159,11 @@ async function loadExecutionRouteContract() {
 			for (const id of collectEvidenceRefs(page, mode)) {
 				const asset = assets.get(id)
 				if (!asset) throw new Error(`${pageId} references ${id}, which is absent from requiredAssets`)
-				const codeBacked = PROGRAMMATIC_VISUAL_EXTENSIONS.has(
+				const kind = kinds.get(id)
+				const codeBacked = kind !== 'document' && PROGRAMMATIC_VISUAL_EXTENSIONS.has(
 					extname(asset.path ?? '').toLowerCase(),
 				)
-				if (codeBacked && !RENDER_ROUTES.has(asset.renderRoute)) {
+				if ((codeBacked || asset.renderRoute !== undefined) && !RENDER_ROUTES.has(asset.renderRoute)) {
 					throw new Error(`${pageId} requires code-backed ${id} without a supported renderRoute`)
 				}
 				if (RENDER_ROUTES.has(asset.renderRoute)) {

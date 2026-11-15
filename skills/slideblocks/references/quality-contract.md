@@ -30,7 +30,7 @@ This is one adaptive execution prompt. Do not ask the user to choose a workflow,
 
 ### Content and visual adaptation
 
-- Default to scientific-talk composition across topics: substantial imagery with concise ordinary bullets explaining connections. Choose material before layout; preserve explicit user style and source boundaries.
+- Choose the narrative from what the audience needs to understand, judge, or act on; choose visual expression independently from explicit direction, the accepted deck or template, materials, and viewing context. Scientific-talk composition is an available direction, not a requirement for every topic. Choose material before layout; preserve user style and source boundaries.
 - Treat the selected Block, Recipe, or Deck as a visual and narrative system, not a pixel-locked form. Preserve its recognizable composition logic, hierarchy, pacing, interaction language, and quality bar while adapting layout and density to the user's content.
 - Prioritize, in order: a clear core message, a strong visual result, the Artifact's visual DNA and key interaction, faithful coverage of useful user content, and only then literal reproduction of the reference layout.
 - You may compress, restructure, and visually translate the user's wording, but preserve its meaning. Treat names, metrics, dates, quotations, citations, legal wording, and copy explicitly locked by the user as immutable unless the user asks to change them.
@@ -265,7 +265,7 @@ Use this profile when the user asks for a launch film, cinematic product story, 
 
 ### Academic and Scientific Slides
 
-Default to this craft across topics; do not invent academic framing or equations. Explicit user direction and a block's intentional art direction may override style, never legibility, mathematical correctness or evidence integrity.
+Apply this craft when a scientific or figure-led research/technical treatment serves the audience job or selected direction. Do not invent academic framing or equations. Other tasks and visual directions keep the same legibility, mathematical correctness and evidence integrity; explicit user direction and a block's intentional art direction remain controlling.
 
 - Choose the canvas tone from the subject, source material, audience, brand, and viewing context. White or paper-like treatment is often useful for reports and dense figures; a coherent dark or image-led treatment is equally valid when it fits the material more strongly.
 - Use a restrained, content-fit palette with clear roles for ink, emphasis, muted text, rules, and genuine semantic distinctions. Do not impose one academic-blue palette on unrelated subjects.

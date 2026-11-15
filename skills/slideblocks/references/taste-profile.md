@@ -11,7 +11,7 @@ Run the client's taste command before planning and use the directory and profile
 - Resolve the taste directory from SLIDEBLOCKS_CONFIG_DIR, then $XDG_CONFIG_HOME/slideblocks, then ~/.config/slideblocks. It holds `taste.md` (the profile), `taste-history.md` (the change log) and `.taste-last.md` (the last version this workflow wrote).
 - Also read the project fallback `.slideblocks/taste.md` when it exists. The taste directory's copy wins when both exist.
 - If `.slideblocks/taste-signals.md` holds signals after `taste.distilledThrough` (an earlier session ended before delivery), distil them first, as described under "Distil at delivery".
-- Decide the scenario: a short name for the kind of presentation, such as 学术报告, 技术分享, 工作汇报, 产品发布, 融资路演 or 课堂. Reuse a name that already appears in the profile whenever it fits; a request worded as 科研进展介绍 is still 学术报告.
+- Decide the scenario: a short name for the kind of presentation, such as 学术报告, 技术分享, 工作汇报, 产品发布, 融资路演 or 课堂. Reuse a name that already appears in the profile whenever it fits; use the intended audience job rather than subject alone. 科研成果讲解 may fit 学术报告; a research project milestone update may fit 工作汇报. This scenario locates applicable tastes and does not select the content task or lock the visual direction.
 - Set `schemaVersion` to 2 in `.slideblocks/workflow-state.json` and record the result there as a `taste` object, and in `.slideblocks/page-plan.md` as a `### Taste applied` subsection at the end of `## Visual direction`:
 
 ```json

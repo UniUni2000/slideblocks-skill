@@ -19,6 +19,10 @@ Use this workflow to turn a short request plus arbitrary materials into one comp
 
 Do not show this route matrix or ask the user to select a route when the evidence resolves it. Every PPT/PPTX output remains outside the delivery promise; PowerPoint is accepted only as read-only input for a Slidev rebuild or visual reference.
 
+## Content task and visual expression
+
+After source intake, use `task-routing.md` to choose content guidance from the primary audience job. Load research/technical or work-progress guidance only when it fits; keep custom tasks available. Record the short rationale in the existing communication contract. This content choice does not replace the project routes above. Select visual expression separately through `style-profiles.md` and applicable tastes.
+
 ## Run the production pipeline
 
 ### 1. Intake and project boundary

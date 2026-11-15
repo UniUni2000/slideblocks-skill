@@ -1,6 +1,6 @@
 # Style Profiles
 
-The profiles below have been exercised by a real Deck in the current Registry. SlideBlocks defaults to scientific-talk composition across topics, including product, business and technical presentations: substantial visual material with concise ordinary bullets explaining its meaning and connections. The Academic / Scientific profile develops that house direction. Palette and layout remain content-led; explicit user direction and genuine page roles can select another treatment. A product or business topic alone does not select a different default. The profiles are not fixed templates or a closed menu.
+Choose visual expression independently of the content task in `task-routing.md`. Academic / Scientific and Product Launch have been exercised by real Decks in the current Registry; Report / Briefing and Classroom / Handout below are scoped starting directions, not verified Registry Deck profiles. These are adaptable directions, not fixed templates, task labels, or a closed menu. Explicit user style, accepted templates, applicable tastes, actual material, and viewing context determine the fit.
 
 ## Separate quality from style
 
@@ -45,8 +45,29 @@ Verified by `decks/sgr-a-discovery`.
 
 Vary palette, background, editorial character, illustration treatment, and interaction density when the research argument remains clear and source-backed.
 
+## Report / Briefing
+
+Reference-informed starting direction; not yet a verified Registry profile. See the original examples and page-specific lessons in `work-progress-report.md`. It may serve a progress report, a technical decision brief, or another audience job that benefits from quick comparison.
+
+When this direction fits, read [Report / Briefing visual direction](report-briefing-visuals.md) before finalizing the affected Page Briefs. It extracts methods from real Tesla, Tencent, Wikimedia, and NASA content pages and helps select progress, comparison, output, and action carriers from the available evidence.
+
+- Start from stable alignment, clear sans-serif headings, readable body text, and restrained emphasis. A light canvas with dark ink and a limited accent palette is useful when no brand or accepted direction suggests otherwise; adapt it freely to a supplied dark or branded template.
+- Let the important result or observation lead. Keep the chart, actual deliverable, annotated screenshot, schedule, or comparison at a useful scale, with explanation close to the material it qualifies.
+- Make parallel comparisons visually comparable: consistent units, time ranges, baselines, label positions, and semantic colors. State remains understandable without color.
+- Vary the composition for summary, evidence, progress, explanation, and next actions. Do not require card grids, giant KPI numerals, or a dashboard on every page.
+- Tune density for the afterlife: a spoken update needs projection-readable labels; a read-ahead can carry more detail. Do not reproduce tiny investor tables or gray-on-white body copy by imitation.
+- Keep animation purposeful and modest when the audience needs fast assessment. Hold a complete static state with the evidence and its limitations visible.
+
+This direction's look is a local hypothesis until reviewed in real output. Do not promote a sample's palette, font, or furniture into a shared quality requirement.
+
+## Classroom / Handout
+
+For teacher-led reading, worked code, concepts, conditions and examples that need stable reading anchors across pages, read [Classroom / Handout visual direction](classroom-handout-visuals.md). Recommend it for an unbranded programming lesson when no accepted deck, explicit style or applicable taste points elsewhere. It also fits a technical lecture with that reading job; a teaching subject alone does not require it.
+
+This direction supplies a compact, readable type hierarchy, a local CJK font path and stable page structure. It supports text-only pages, source/terminal material, native local annotations and complete handout states. Adapt composition to the relationship being taught; preserve the existing image/figure treatment when real imagery is useful. It does not make its font, background or scale a shared default for other directions.
+
 ## Selecting and synthesizing a direction
 
-Choose one strongest direction by adapting or combining the verified profiles with the actual story and the user's applied tastes from `taste-profile.md`. Present alternatives only when the user explicitly asks for variants or when its cold-start sample step applies.
+Choose one strongest direction by adapting a fitting profile or synthesizing a custom direction with the actual story and the user's applied tastes from `taste-profile.md`. A reference-informed starting direction remains a custom direction in the project record. Present alternatives only when the user explicitly asks for variants or when its cold-start sample step applies.
 
-These profiles are not a closed style list. When neither verified profile fits, use `design-principles.md` to synthesize a custom direction from the content, audience, brand, selected Registry Artifacts, and communication goal. Record it as a custom direction; do not name it as a verified profile until a real Registry Deck has exercised and passed it.
+These profiles are not a closed style list. When no verified profile fits, use `design-principles.md` to synthesize a custom direction from the content, audience, brand, selected Registry Artifacts, and communication goal. Record it as a custom direction; do not name it as a verified profile until a real Registry Deck has exercised and passed it.

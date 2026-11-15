@@ -36,6 +36,8 @@
 npx skills add UniUni2000/slideblocks-skill
 ```
 
+研究与技术讲解、编程教学、工作进展汇报，都可以直接描述听众和目的。Agent 会选择相应的内容指导和视觉方向。
+
 比如，附上相关材料，然后告诉 Agent：
 
 > 用 SlideBlocks，把这篇论文做成一份 15 分钟的英文研究报告。

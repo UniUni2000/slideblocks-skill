@@ -9,6 +9,13 @@ export default function deckShortcutsSetup(
   const { currentPage } = useNav()
 
   function openPresenter() {
+    // A file player has no HTTP index fallback. Keep its filename and query.
+    const currentUrl = new URL(window.location.href)
+    if (currentUrl.protocol === 'file:') {
+      currentUrl.hash = `/presenter/${currentPage.value}`
+      window.open(currentUrl.href, '_blank')
+      return
+    }
     // pathPrefix covers history and hash routing. Deep-link to the page that is
     // currently visible instead of silently returning the presenter to page 1.
     window.open(`${pathPrefix}presenter/${currentPage.value}`, '_blank')
