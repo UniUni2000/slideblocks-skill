@@ -15,6 +15,14 @@ Keep these requirements non-negotiable across every direction:
 
 Allow the user or selected direction to override palette, background tone, type personality, composition, image treatment, ornament, and motion intensity when the quality floor remains intact.
 
+## House starting direction across tasks
+
+Start with high useful density in every task family. On a content page, give the audience room to read the comparisons, mechanisms, examples or qualifications that answer its question together. Use grouping, alignment and modest headings so detail remains readable. A cover, a live demonstration or a single-object reveal can carry its density in a diagram or demonstration rather than additional prose. Facts and viewing distance determine the stopping point.
+
+Treat high information density as a body-page goal during selection, composition and visual review. Gather related baselines, differences, causes, conditions and consequences before compressing the story. Compare the details and relationships visible together with the selected professional page. Compact readable type, bullets, aligned rows and local figure explanations can carry more of the relevant evidence. Review density, reading order and typographic craft together before accepting the study; an enlarged sparse summary still needs work.
+
+For Chinese, first try **LXGW WenKai Regular** for running text and headings. Use the bundled [font preparation and offline verification instructions](classroom-handout-visuals.md#type-hierarchy-and-a-real-cjk-font) independently of the classroom layout. Use tabular numerals for quantitative columns and a suitable monospace face for code. Compare the actual glyphs at delivery size. An explicit type choice, a supplied brand or a demonstrated legibility problem takes precedence. Use the selected language's own type system for other scripts.
+
 ## Product Launch
 
 Verified by `decks/macbook-pro-m5-launch`.
@@ -64,7 +72,7 @@ This direction's look is a local hypothesis until reviewed in real output. Do no
 
 For teacher-led reading, worked code, concepts, conditions and examples that need stable reading anchors across pages, read [Classroom / Handout visual direction](classroom-handout-visuals.md). Recommend it for an unbranded programming lesson when no accepted deck, explicit style or applicable taste points elsewhere. It also fits a technical lecture with that reading job; a teaching subject alone does not require it.
 
-This direction supplies a compact, readable type hierarchy, a local CJK font path and stable page structure. It supports text-only pages, source/terminal material, native local annotations and complete handout states. Adapt composition to the relationship being taught; preserve the existing image/figure treatment when real imagery is useful. It does not make its font, background or scale a shared default for other directions.
+This direction supplies a compact, readable type hierarchy, a local CJK font path and stable page structure. It supports text-only pages, source/terminal material, native local annotations and complete handout states. Adapt composition to the relationship being taught; preserve the existing image/figure treatment when real imagery is useful. Other directions can reuse the house WenKai treatment independently of the classroom background, type scale and page structure.
 
 ## Selecting and synthesizing a direction
 

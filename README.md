@@ -40,6 +40,8 @@ npx skills add UniUni2000/slideblocks-skill
 
 Describe your audience and goal for research talks, programming lessons, or work-progress reports. The skill selects task guidance and a visual direction.
 
+New visual directions use professional reference pages and, when image generation is available, visual studies to guide information-rich, editable slides. The agent reviews density, hierarchy, figure-to-text relationships and factual fidelity before delivery.
+
 For example, attach your materials and ask:
 
 > Use SlideBlocks to turn this paper into a 15-minute research talk in English.

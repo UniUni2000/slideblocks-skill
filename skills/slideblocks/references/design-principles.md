@@ -8,6 +8,10 @@ Use these principles to turn the story and selected Registry Artifacts into one 
 - Test the thesis by mentally replacing the subject or brand. If the same treatment works unchanged for an unrelated topic, refine it until the form carries meaning rather than only style.
 - Preserve locked facts and source meaning. Let the visual thesis change presentation, emphasis, sequence, and spatial relationships—not evidence.
 
+For an evidence-rich body page, plan the reading task before dividing up the canvas. Write down what the audience should be able to compare, trace or decide, and gather the source details that enable that reading. A baseline, a variance, its cause and its consequence often belong together. Give space to that relationship. An isolated number or a photograph earns prominent space when it helps the audience answer the question.
+
+Ask what the presenter would point to as each finding is explained. When several explanations refer to identifiable parts of one figure, let that figure grow until its parts can carry their own labels. Place each explanation at its referent or in nearby white space, with a short leader only if needed. When readers need to scan several cases against common criteria, aligned rows may serve them better. An independent argument can use its own text group. Choose afresh on each page and carry the resulting relationships into the mockup prompt.
+
 ## Ground the direction in real context
 
 - Inspect the user's existing deck, design system, brand guidance, code, screenshots, images, charts, and prior materials before inventing a visual language.
@@ -16,6 +20,19 @@ Use these principles to turn the story and selected Registry Artifacts into one 
 - Reserve a dedicated logo zone before laying out citations, page numbers, controls, or footer copy. Do not crop, stretch, mask, or visually merge a mark into a seam merely to make the remaining content fit.
 - Do not create logo clutter for incidental citations or references. Brand assets should improve recognition or evidence.
 - Use an honest semantic placeholder when a required factual image or brand asset is unavailable. Do not fabricate a credible-looking substitute.
+
+When designing information-rich pages without a supplied template, inspect a rendered professional content page that supports a similar reading task. Start with a relevant accepted page or the specific pages linked by the task guide; search official presentations if needed and permitted. A Registry search or a source document used only for facts does not show how a reference page reads. In the existing page plan, identify the page and the visual decision it informed (for example how comparators align, or where a figure is explained). Design the rest for the present material. If a suitable example is unavailable, use the source and state that limitation in the plan.
+
+Read the reference at slide size. What job does its heading do, where does the audience find the conclusion, and how do grouped statements help them read the adjacent evidence? Choose those roles for the new page before choosing type sizes. A short topic heading can orient a reader while the finding sits beside its evidence; a conclusion-led heading earns its emphasis when it helps interpret the whole page. Set their relative scale and weight by looking at the rendered result. Use bullets for parallel observations, aligned rows for comparisons, and nearby explanations for what the evidence means, as the material warrants.
+
+## From professional reference to editable page
+
+For a new visual direction, run this loop before authoring the representative body page. Reuse the result on pages with the same reading job. Generate another study when the relationship to explain materially changes. Local repairs and exact template reproduction can keep their accepted visual direction.
+
+1. Identify the question the reader should answer and the source-backed details needed together. Select and actually view a professional original page with a similar reading task. Keep its URL, page/figure locator and rendered image in the project. Decide which relationship to borrow and what the new material needs to do differently.
+2. Using the available image-generation tool, make a full-slide visual mockup from that reference image, the factual brief, and the chosen type direction. Prompt for the actual reading order, content groups, comparison units and focal evidence. Inspect the returned bitmap at slide size. Follow each annotation back to its exact feature, including both ends of any comparison. If the reader has to hunt, move the note or resize the figure. Remove repeated captions and claims added by the image model without source support. If the evidence becomes incidental or a headline overwhelms it, identify the specific defect and revise the mockup before implementation. Store the selected bitmap and its prompt under the project’s working assets. When image generation is explicitly disallowed, unavailable or fails, record which step was skipped and continue with reference-led native design; describe the actual path at handoff.
+3. The implementer must view the selected bitmap. Use its spatial and typographic decisions to build editable text, charts, code or diagrams from the original materials. Verify numbers, units, qualifiers and sources independently of image-model lettering. Documentary images still come from the factual source.
+4. Inspect the reference, mockup and real render at equal width. At thumbnail size, identify what attracts attention first; at reading size, answer the planned question using the visible evidence. Repair the editable page and rerender where either reading fails. Record the reference, chosen mockup, and observed repair or pass in the existing page plan and QA report. For unattended work, these are internal reviews; deliver the completed page without requesting a mockup vote.
 
 ## Establish one visual grammar
 
@@ -88,12 +105,14 @@ For decks of five or more slides, stabilize the grammar on two high-risk page ro
 
 ## Perform an aesthetic critique
 
+View a representative rendered body page and the selected reference at the same display width. Read both as the intended audience. What can a reader actually compare or verify in the draft? Inspect the most prominent element: does its size earn its place, or would the space better show a missing relationship from the source? A fully legible draft can still need a different composition. In that case return to the source, revise the page brief and rebuild before polishing spacing. The QA report should name the visible finding and the outcome, including a decision to keep a page that already works.
+
 Before technical completion, review and repair the deck against these questions:
 
 - **Concept:** Does the visual thesis come from this content, and does the deck still communicate when decorative styling is removed?
 - **Context:** Do brand, imagery, data, citations, and selected Registry assets feel native to the same presentation?
 - **Voice:** Does the copy sound like this presenter addressing this audience, or like reusable assistant prose and slogan scaffolding?
-- **Hierarchy:** Is the intended reading order obvious at a glance and at presentation distance?
+- **Hierarchy:** At equal display width, compare how much attention the heading takes relative to the evidence on each page. If the same conclusion competes for attention in the title, lead and figure, keep it where the reader can best verify it. Reclaim the space for related source detail when it improves the reading task; check grouping, alignment and legibility again in the full render.
 - **Craft:** Are alignment, spacing, type, color, image treatment, and motion deliberate and consistent?
 - **Function:** Does every element help the audience understand, compare, decide, remember, or act?
 - **Originality:** Does the result avoid interchangeable template treatment and common AI visual defaults?

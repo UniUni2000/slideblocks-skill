@@ -35,9 +35,9 @@ When the profile's 各场景的方向 has a line for this scenario, do not show 
 
 ## Cold-start samples
 
-Show cold-start samples only for a new deck of three or more pages or a full visual redesign, when the profile has no direction for this scenario, the user has not set a style, and the user has not asked you to proceed without questions.
+Offer a cold-start sample choice when the user requests a visual checkpoint on a new deck of three or more pages or a full visual redesign. An ordinary production brief delegates visual selection, including on a first run with no taste profile.
 
-- The user has set a style when they name a look or brand ("用深色", "按我们模板"), supply a brand template to follow, or select a specific SlideBlocks design. Proceed without questions when they say 直接做, 不用问我 or the equivalent, or when this run cannot wait for a reply (for example a one-shot command-line run); then use direction A and record no taste from that choice.
+- The user has set a style when they name a look or brand ("用深色", "按我们模板"), supply a brand template to follow, or select a specific SlideBlocks design. Proceed without questions when they say 直接做, 不用问我 or the equivalent, or when this run cannot wait for a reply (for example a one-shot command-line run); then select the direction internally through the reference and mockup review in `design-principles.md`, record `samples: "skipped:unattended"` and `choice: null`, and infer no personal preference from that choice.
 - Never show samples for a page edit, a repair of an existing Deck, a narrative-only redesign or a source-faithful PowerPoint migration.
 - The samples are the two grammar pages this workflow builds first anyway, with real content and real material; use the same two pages for a 3–4 page Deck. Choose sample pages whose surface differences are visible; never use a full-bleed image cover as a sample page. Prefer an opening page with a visible title and canvas plus the densest body page with text, a figure and its caption.
 - Never print sample labels such as A, B or 样张 on the slides. Direction letters and descriptions belong on the sample sheet only.

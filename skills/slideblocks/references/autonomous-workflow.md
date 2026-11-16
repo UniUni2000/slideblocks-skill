@@ -44,7 +44,7 @@ Infer the strongest supported answer from the request and sources for:
 - required afterlife such as approval, audit, handoff, archive, or reuse,
 - source fidelity, locked content, and permitted research.
 
-Record the result and material assumptions in the page plan. Do not turn these fields into a questionnaire. Interrupt only when unresolved alternatives would materially change the message or when a genuine permission, source, destructive action, external publication, or paid action is required. The cold-start sample step in `taste-profile.md` is the one planned visual checkpoint: it shows rendered pages and asks for one letter, never a questionnaire.
+Record the result and material assumptions in the page plan. Do not turn these fields into a questionnaire. Interrupt only when unresolved alternatives would materially change the message or when a genuine permission, source, destructive action, external publication, or paid action is required. Use the cold-start sample step in `taste-profile.md` when the user asks to choose a visual direction. Otherwise review the original page, image-generated mockup and native render internally and continue to delivery.
 
 ### 3. Establish factual sufficiency
 
