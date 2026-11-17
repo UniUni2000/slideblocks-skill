@@ -10,6 +10,12 @@
 
 </div>
 
+## v0.14.0 · 重大更新 🚀
+
+新增视觉指导和 PPT 整体风格设计功能。
+
+> 作者实测：现在可以在完全无需人类干预的情况下，做出学术报告级别的 PPT。除了 PPT 里的文字还有点 AI 味，我暂时找不出太多问题了。😎
+
 <a href="media/showcase.png">
   <picture>
     <source media="(prefers-reduced-motion: reduce)" srcset="media/showcase.png">

@@ -10,6 +10,12 @@ Try native HTML for your next presentation. Give your agent your materials and r
 
 </div>
 
+## v0.14.0 · Major update 🚀
+
+New visual guidance and style design for the entire presentation.
+
+> Author’s verdict: it can now create presentations fit for an academic talk without human intervention. The text still has that AI flavor, but I’m struggling to find much else to complain about. 😎
+
 <a href="media/showcase.png">
   <picture>
     <source media="(prefers-reduced-motion: reduce)" srcset="media/showcase.png">
