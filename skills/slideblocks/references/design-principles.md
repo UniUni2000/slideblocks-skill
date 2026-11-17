@@ -25,6 +25,14 @@ When designing information-rich pages without a supplied template, inspect a ren
 
 Read the reference at slide size. What job does its heading do, where does the audience find the conclusion, and how do grouped statements help them read the adjacent evidence? Choose those roles for the new page before choosing type sizes. A short topic heading can orient a reader while the finding sits beside its evidence; a conclusion-led heading earns its emphasis when it helps interpret the whole page. Set their relative scale and weight by looking at the rendered result. Use bullets for parallel observations, aligned rows for comparisons, and nearby explanations for what the evidence means, as the material warrants.
 
+Borrow the reference's organization of evidence rather than its surface arrangement. Identify what its images let a reader inspect and how its bullets, subordinate explanations and local labels connect to those features. Recreate that explanatory richness using the present sources. Matching a background, a left/right split or the size of a picture does not reproduce the reference's useful density.
+
+## Keep composition studies separate from factual evidence
+
+An image-generated full-slide study approves composition only. It cannot approve documentary imagery, chart geometry, data points, formulas, dates or apparatus details. Preserve factual originals and frozen source data separately; use originals, verified crops or deterministic source-data plots in the editable page. Never recover factual assets by cropping the generated mockup.
+
+If the image model cannot preserve an evidence panel, declare that region as a composition placeholder, identify the original that will replace it, and make the placeholder status visible in the study. A reviewer may accept its placement while withholding factual approval. Unsupported text, false relationships or invented quantitative geometry outside that declared region still fail. At native review, inspect the restored original at its actual size: a successful placeholder composition does not prove that its real labels, detail and qualifications fit.
+
 ## From professional reference to editable page
 
 For a new visual direction, run this loop before authoring the representative body page. Reuse the result on pages with the same reading job. Generate another study when the relationship to explain materially changes. Local repairs and exact template reproduction can keep their accepted visual direction.
@@ -84,6 +92,7 @@ For decks of five or more slides, stabilize the grammar on two high-risk page ro
 - Do not synthesize italic or bold CJK glyphs. Prefer real weights, color, emphasis marks, or an appropriate alternate face, and use `font-synthesis: none` when the project supports it.
 - Use tabular numerals for aligned metrics and tables. Verify baselines, punctuation, wrapping, and fallback after fonts load.
 - Restructure content before shrinking essential text below audience-readable size. Treat suggested type ranges and automated measurements as warnings; rendered readability and visual hierarchy at the intended viewing distance decide whether the page passes.
+- Own the margins and line-height of actual headings, paragraphs and list items in the page's scoped styles when theme defaults interfere. Inherited list-container styles may lose to a theme's list-item rules. Compare the live and offline renders after the final export; a different CSS order must not change the accepted hierarchy.
 
 ## Write like a particular presenter
 
@@ -118,3 +127,5 @@ Before technical completion, review and repair the deck against these questions:
 - **Originality:** Does the result avoid interchangeable template treatment and common AI visual defaults?
 
 Do not report a numerical aesthetic score as proof of quality. When the critique finds a material weakness, repair it and render again before completing the technical checks in `qa.md`; do not invent a change merely to demonstrate iteration.
+
+The lead remains responsible for the final visual decision. An independent pass does not close a concrete unresolved finding from the lead or another reviewer. Record the finding and its observed resolution in the existing page plan and QA report. If the missing relationship needs more source context or a different primary figure, return to material selection and page planning; enlarging arrows or polishing CSS cannot supply absent evidence.

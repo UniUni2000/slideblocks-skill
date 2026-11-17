@@ -21,6 +21,8 @@ Split that roster into coherent, non-overlapping assignments. Prefer one dedicat
 
 Workers may read the complete source bundle, but they write only their assigned page-group file during planning. They do not concurrently edit `source-map.md`, `page-plan.md`, or `execution-lock.json`. After the lead merges the accepted plan and locks composition, it can assign that owner exclusive page component and asset files for implementation. Shared styles, entrypoint assembly, source-map adoption, lock updates, and final build/export remain lead-owned. Return full-size rendered pages to their owners for inspection and repair; a written brief alone does not complete page ownership.
 
+When a page uses an image-generated study, give the independent reviewer the prepared `reviewer-brief.md` and actual candidate images. Before implementation, run the study bridge's checked `handoff` command and pass its `prompt`, selected bitmap and source/design images to the page owner. This carries the shared visual guidance and source-reconstruction boundary into the actual assignment. Keep these execution receipts with the studies; they do not replace the canonical page plan. See `visual-study.md`.
+
 ## Develop pages according to their purpose
 
 Begin each assigned page with why it exists and what the audience should see, understand, feel, compare, or do. Then develop both the substance and a concrete page-level visual solution: its dominant visual entry, intended hierarchy or relationship, likely carrier and material, relative emphasis, use of the canvas, presenter support, sequence context, and complete static behavior. Add only what is needed to realize that purpose.

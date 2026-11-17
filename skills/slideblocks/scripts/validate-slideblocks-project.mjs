@@ -3305,7 +3305,7 @@ function printResult(result) {
   }
 }
 
-const isMain = process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+const isMain = process.argv[1] && existsSync(process.argv[1]) && realpathSync(process.argv[1]) === fileURLToPath(import.meta.url);
 if (isMain) {
   try {
     const options = parseArguments(process.argv.slice(2));

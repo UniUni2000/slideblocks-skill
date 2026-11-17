@@ -115,6 +115,10 @@ For every representative page and interaction state:
 
 For a complete Deck, use a reviewer that did not plan or implement the pages when independent delegation is available. Give it every page at the final 1280 × 720 viewport plus the same-scale final rendered sequence and contact sheet, not only thumbnails and not the planning transcript or intended solution. The contact sheet judges rhythm; the full-size pages judge typography, boundaries, labels, and local geometry. The reviewer judges the result as an audience member and returns only concrete failed page IDs with reasons.
 
+For study-led pages, also provide the professional reference, selected study, factual originals and the prepared review guidance from `visual-study.md`. Compare them at equal width. Check what the audience can inspect in the figure and how nearby text explains it, not merely image area or word count. Verify that all declared study placeholders have become factual originals or verified source-data drawings and remain legible with their real labels. A composition-only study pass never approves the finished evidence.
+
+The lead inspects the full rendered sequence after independent review. Keep concrete unresolved findings in the existing page plan and QA report; an independent pass cannot erase them. Hold a rejected study through the bridge before handing it off. For a native failure, repair the page or return to its source/evidence plan, then recheck the affected render. Complete delivery only after the lead has checked the observed resolution or disclosed an unavoidable source limitation.
+
 The reviewer must reject the Deck and block approval when any rendered page has a material audience-facing failure, including unnatural or translation-like visible language, presentation-distance unreadability, weak hierarchy, fragmented card-like composition, visual drift, or a direction that does not fit the content. It must also reject:
 
 - an ordinary content page with a repeated Chinese and English title when one is only a literal or near-literal translation;
