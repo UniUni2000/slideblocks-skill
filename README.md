@@ -57,6 +57,8 @@ An agent that supports skills, Node.js, and a Chromium browser. An agent with im
 
 **Open `offline.html` in Chrome or Edge to start presenting.**
 
+[![Fullscreen, presenter view, in-place editing, slide overview, and offline HTML/PDF export](media/presentation-features.gif)](https://uniuni2000.github.io/slideblocks-skill/#/1)
+
 | Present | Edit | Share | Keep building |
 | --- | --- | --- | --- |
 | Fullscreen, presenter view, slide overview, annotation tools, and more. | Double-click ordinary text. Save with `⌘/Ctrl + S`. | Right-click → **Export offline HTML** or **Export PDF**. | Tell your agent what you need, and it can keep editing the source. |

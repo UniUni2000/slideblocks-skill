@@ -55,6 +55,8 @@ npx skills add UniUni2000/slideblocks-skill
 
 **使用 Chrome 或 Edge 打开 `offline.html`，就可以开始放映了。**
 
+[![全屏放映、演讲者视图、原地改字、页面总览与离线 HTML/PDF 导出](media/presentation-features.gif)](https://uniuni2000.github.io/slideblocks-skill/#/1)
+
 | 演讲 | 改字 | 分享 | 继续完善 |
 | --- | --- | --- | --- |
 | 全屏、演讲者、页面总览、标注工具等。 | 双击普通文本，`⌘/Ctrl + S` 保存。 | 右键 → **Export offline HTML** 或 **Export PDF**。 | 任何需求都可以直接告诉 Agent ，让它继续修改源码。 |
